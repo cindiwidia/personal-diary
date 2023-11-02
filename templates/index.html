@@ -40,15 +40,26 @@
                         let title = articles[i]['title'];
                         let content = articles[i]['content'];
                         let file = articles[i]['file'];
+
+                        let time = articles[i]['time'] || '????.??.??';
+
+                        let profil = articles[i]['profil'];
+                        let profil_html = "";
+                        if (profil) {
+                            profil_html = `
+                    <img src="../${profil}" class="card-img-top" alt="..." style="width: 100px; height: 100px; border-radius: 50%;" />
+                            `
+                        }
                         let temp_html = `
-                        <div class="col-4">
+            <div class="col-4">
                 <div class="card">
                     <img src="../${file}"
                         class="card-img-top" alt="...">
                     <div class="card-body">
+                        ${profil_html}
                         <h5 class="card-title">${title}</h5>
                         <p class="card-text">${content}</p>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
                     </div>
                 </div>
             </div>
@@ -70,10 +81,12 @@
             }
 
             let file = $('#image').prop('files')[0];
+            let profil = $('#profil-image').prop('files')[0];
 
             let form_data = new FormData();
 
             form_data.append('file_give', file);
+            form_data.append('profil_give', profil);
             form_data.append('title_give', title);
             form_data.append('content_give', content);
 
@@ -100,6 +113,10 @@
                 <h1 class="display-5 fw-bold">Personal Diary</h1>
                 <div class="input-group mb-3 custom-file">
                     <input type="file" class="form-control" id="image">
+                </div>
+
+                <div class="input-group mb-3 custom-file">
+                    <input type="file" class="form-control" id="profile-image">
                 </div>
 
                 <div class="input-group mb-3">
